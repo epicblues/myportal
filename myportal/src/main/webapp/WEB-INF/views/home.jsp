@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Template</title>
-<script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/javascript/jquery/jquery-3.6.0.js"></script>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/main.css" />
+<script src="<c:url value="/javascript/jquery/jquery-3.6.0.js"/>"></script>
+<link rel="stylesheet" href="<c:url value="/css/main.css"/>" />
 </head>
 <body>
 	<div id="container">

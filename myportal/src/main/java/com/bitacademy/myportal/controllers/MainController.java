@@ -10,7 +10,7 @@ public class MainController {
 	
 	@RequestMapping({"/home", "/"}) ModelAndView home() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/WEB-INF/views/home.jsp");
+		mav.setViewName("home"); // Setting한 ViewResolver의 Prefix Suffix를 조합해서 정확한 URL을 만들어 준다.
 		return mav;
 	}
 }
