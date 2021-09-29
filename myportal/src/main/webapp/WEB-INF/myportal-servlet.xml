@@ -14,7 +14,7 @@
 </context:component-scan>
 
 <!-- 정적 자원 처리를 위해 디폴트 서블릿 위임 핸들링 -->
-<mvc:annotation-driven></mvc:annotation-driven>
+<mvc:annotation-driven/>
 <mvc:default-servlet-handler/>
 
 <!-- ViewResolver 설정 -->

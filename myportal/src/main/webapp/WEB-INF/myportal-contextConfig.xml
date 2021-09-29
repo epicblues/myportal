@@ -7,7 +7,33 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
-<context:component-scan base-package="com.bitacademy.myportal">
-	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-</context:component-scan>
+	<context:component-scan
+		base-package="com.bitacademy.myportal">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<!-- Oracle datasource -->
+	<bean id="oracleDatasource"
+		class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">
+		<property name="URL"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="user" value="webdb" />
+		<property name="password" value="webdb" />
+		<property name="connectionCachingEnabled" value="true" />
+		<qualifier value="main-db" />
+	</bean>
+	
+	<!-- MyBatis SqlSessionFactoryBean에 연결 -->
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="oracleDatasource" />
+		<property name="configLocation" value="classpath:mybatis/configuration.xml"/>
+		<!-- 사용자가 설정한 classpath를 기본 경로로 삼는다. -->
+	</bean>
+	
+	<!-- MyBatis SqlSessionTemplate을 생성하면서 sqlSessionFactory를 주입 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+	</bean>
 </beans>
