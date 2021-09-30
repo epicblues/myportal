@@ -9,6 +9,10 @@ public class UserVo {
 	private String password; // 비밀번호
 	private String gender; // 성별 정보
 
+	public UserVo( ) {
+		System.out.println(UserVo.class + " : Constructed");
+	}
+	
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="

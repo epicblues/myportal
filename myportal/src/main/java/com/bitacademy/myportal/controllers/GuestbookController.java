@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bitacademy.myportal.repository.GuestbookVo;
 import com.bitacademy.myportal.service.GuestbookService;
@@ -42,8 +43,9 @@ public class GuestbookController {
 	}
 
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
-	public String delete(@PathVariable long no, Model model) {
+	public String delete(@PathVariable long no, Model model, @RequestParam String result) {
 		model.addAttribute("no", no);
+		model.addAttribute("result",result);
 		
 		return "guestbook/deleteform";
 	}

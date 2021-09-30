@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis mapper 설정 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="user">
+	<insert id="registerUser" parameterType="userVo">
+		INSERT INTO users(no,name,password,email,gender)
+		VALUES(seq_users_pk.nextval, #{name}, #{password}, #{email}, #{gender})
+	</insert>
+	<select id="login" parameterType="map" resultType="userVo">
+		SELECT * FROM users WHERE email=#{email} and password=#{password}
+	</select>
+</mapper>

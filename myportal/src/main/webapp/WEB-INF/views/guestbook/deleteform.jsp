@@ -8,6 +8,9 @@
 <title>My Homepage</title>
 </head>
 <body>
+	<c:if test="${not empty result}">
+  		<h1 style="color:red;">${result }</h1>
+  	 </c:if>
 	<form method="post"
 		action="<c:url value="/guestbook/delete" />">
 		<input type='hidden' name="no" value="${no }"> 
