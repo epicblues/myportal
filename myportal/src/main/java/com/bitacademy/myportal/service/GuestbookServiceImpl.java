@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bitacademy.myportal.repository.GuestbookDao;
 import com.bitacademy.myportal.repository.GuestbookVo;
@@ -23,13 +24,13 @@ public class GuestbookServiceImpl implements GuestbookService {
 	@Override
 	public boolean writeMessage(GuestbookVo vo) {
 		int resultNum = guestbookDaoImpl.insert(vo);
-		return resultNum != 0;
+		return resultNum == 1;
 	}
 
 	@Override
 	public boolean deleteMessage(GuestbookVo vo) {
-		// TODO Auto-generated method stub
-		return false;
+		int resultNum = guestbookDaoImpl.delete(vo);
+		return resultNum == 1;
 	}
 
 }

@@ -15,6 +15,9 @@
   
   <c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
   <c:import url="/WEB-INF/views/includes/navigation.jsp"/>
+  	<c:if test="${not empty result}">
+  		<h1 style="color:red;">${result }</h1>
+  	 </c:if>
 	<h1>방명록</h1>
 	<form action='<c:url value="/guestbook/write"/>' 
 			method="POST">

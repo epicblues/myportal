@@ -20,33 +20,43 @@ public class GuestbookController {
 
 	@Autowired
 	GuestbookService guestbookServiceImpl;
-	
-	@RequestMapping({"","/","/list"})
+
+	@RequestMapping({ "", "/", "/list" })
 	public String list(Model model) {
-		
-		
-		
+
 		List<GuestbookVo> list = guestbookServiceImpl.getMessageList();
 		System.out.println(list);
 		model.addAttribute("list", list);
-		
+
 		return "guestbook/list";
 	}
-	
-	@RequestMapping(value = {"/write"}, method = RequestMethod.POST)
+
+	@RequestMapping(value = { "/write" }, method = RequestMethod.POST)
 	public String write(@ModelAttribute GuestbookVo vo) {
 		boolean result = guestbookServiceImpl.writeMessage(vo);
+		if (result) {
+			return "redirect: /myportal/guestbook/list";
+		}
+
+		return "redirect: /myportal";
+	}
+
+	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
+	public String delete(@PathVariable long no, Model model) {
+		model.addAttribute("no", no);
+		
+		return "guestbook/deleteform";
+	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public String deleteForm(@ModelAttribute GuestbookVo vo, Model model) {
+		
+		boolean result = guestbookServiceImpl.deleteMessage(vo);
+		
 		if(result) {
 			return "redirect: /myportal/guestbook/list";
 		}
-		
-		return "redirect: /myportal";
-	}
-	
-	@RequestMapping("/delete/{no}")
-	public String delete(@PathVariable long no) {
-		
-		
-		return "redirect: /myportal/guestbook/list";
+		model.addAttribute("result", "FAILED! PASSWORD ERROR!");
+		return "redirect:/guestbook/delete/" + vo.getNo();
 	}
 }
