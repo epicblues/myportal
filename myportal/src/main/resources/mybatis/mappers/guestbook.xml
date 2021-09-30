@@ -13,9 +13,13 @@
 		order by regdate desc
 	</select>
 	
-	<insert id="insert" parameterType="guestbookVo">
+	<insert id="write" parameterType="guestbookVo">
 		insert into guestbook (no, name, password, content)
-		values (seq_guestbook_no.NEXTVAL, '방문자', 'test', '테스트 방명록입니다.')
+		values (seq_guestbook_no.NEXTVAL, #{name}, #{password}, #{content})
 	</insert>
+	
+	<delete id="delete" parameterType="guestbookVo">
+		delete from guestbook where no=#{no} and password=#{password}
+	</delete>
 </mapper>
 

@@ -2,9 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
+<script src="<c:url value="/javascript/jquery/jquery-3.6.0.js"/>"></script>
+<link rel="stylesheet" href="<c:url value="/css/main.css"/>" />
 <meta charset="UTF-8">
 <title>My Homepage</title>
 </head>

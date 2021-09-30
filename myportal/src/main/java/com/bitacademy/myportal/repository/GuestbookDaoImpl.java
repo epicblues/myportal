@@ -22,14 +22,15 @@ public class GuestbookDaoImpl implements GuestbookDao {
 
 	@Override
 	public int insert(GuestbookVo vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.insert("guestbook.write",vo);
+		
+		return result;
 	}
 
 	@Override
 	public int delete(GuestbookVo vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.delete("guestbook.delete",vo);
+		return result;
 	}
 
 }

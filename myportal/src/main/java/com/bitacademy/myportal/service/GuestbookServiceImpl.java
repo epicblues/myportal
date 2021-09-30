@@ -22,8 +22,8 @@ public class GuestbookServiceImpl implements GuestbookService {
 
 	@Override
 	public boolean writeMessage(GuestbookVo vo) {
-		// TODO Auto-generated method stub
-		return false;
+		int resultNum = guestbookDaoImpl.insert(vo);
+		return resultNum != 0;
 	}
 
 	@Override
