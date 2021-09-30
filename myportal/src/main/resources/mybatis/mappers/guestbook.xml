@@ -12,5 +12,10 @@
 		from guestbook
 		order by regdate desc
 	</select>
+	
+	<insert id="insert" parameterType="guestbookVo">
+		insert into guestbook (no, name, password, content)
+		values (seq_guestbook_no.NEXTVAL, '방문자', 'test', '테스트 방명록입니다.')
+	</insert>
 </mapper>
 
