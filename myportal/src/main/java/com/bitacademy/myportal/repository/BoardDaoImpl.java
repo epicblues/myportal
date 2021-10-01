@@ -14,8 +14,8 @@ public class BoardDaoImpl implements BoardDao {
 	
 	@Override
 	public List<BoardVo> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<BoardVo> list = sqlSession.selectList("board.selectAll");
+		return list;
 	}
 
 	@Override
@@ -27,20 +27,21 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public BoardVo getContent(Long no) {
-		// TODO Auto-generated method stub
-		return null;
+		BoardVo content = sqlSession.selectOne("board.selectOne", no);
+		int hitupdatedCount = sqlSession.update("board.addhit", no);
+		return content;
 	}
 
 	@Override
 	public int update(BoardVo boardVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int updatedCount = sqlSession.update("board.update", boardVo);
+		return updatedCount;
 	}
 
 	@Override
 	public int delete(Long no) {
-		// TODO Auto-generated method stub
-		return 0;
+		int deletedCount = sqlSession.delete("board.delete", no);
+		return deletedCount;
 	}
 
 }

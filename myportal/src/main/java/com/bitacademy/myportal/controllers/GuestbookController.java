@@ -43,9 +43,9 @@ public class GuestbookController {
 	}
 
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
-	public String delete(@PathVariable long no, Model model, @RequestParam String result) {
+	public String delete(@PathVariable long no, Model model) {
 		model.addAttribute("no", no);
-		model.addAttribute("result",result);
+		
 		
 		return "guestbook/deleteform";
 	}

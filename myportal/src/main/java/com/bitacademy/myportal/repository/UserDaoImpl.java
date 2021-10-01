@@ -47,4 +47,10 @@ public class UserDaoImpl implements UserDao {
 		return result;
 	}
 
+	@Override
+	public int update(UserVo vo) {
+		int updatedCount = sqlSession.update("user.update",vo);
+		return updatedCount;
+	}
+
 }

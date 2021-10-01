@@ -16,14 +16,14 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public List<BoardVo> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<BoardVo> list = boardDaoImpl.selectAll();
+		return list;
 	}
 
 	@Override
 	public BoardVo getContent(long no) {
-		// TODO Auto-generated method stub
-		return null;
+		BoardVo content = boardDaoImpl.getContent(no);
+		return content;
 	}
 
 	@Override
@@ -34,8 +34,16 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public boolean update(BoardVo vo) {
-		// TODO Auto-generated method stub
-		return false;
+		int updatedCount = boardDaoImpl.update(vo);
+		
+		return updatedCount == 1;
 	}
+
+	@Override
+	public boolean delete(long no) {
+		int deletedCount = boardDaoImpl.delete(no);
+		return deletedCount == 1;
+	}
+	
 
 }

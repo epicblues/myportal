@@ -27,6 +27,27 @@ public class UserController {
 	@Autowired
 	private UserService userServiceImpl;
 
+	@RequestMapping(value="/update", method = RequestMethod.GET)
+	public String updateForm() {
+		return "/users/updateform";
+	}
+	
+	@RequestMapping(value="/update", method = RequestMethod.POST)
+	public String update(@ModelAttribute UserVo vo, HttpSession session) {
+		
+		int updatedCount = userServiceImpl.updateUser(vo);
+		
+		if(updatedCount == 1) {
+			session.invalidate();
+		} else {
+			System.out.println("UPDATE 실패!");
+		}
+		
+		return "redirect:/";
+	}
+	
+	
+	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join() {
 

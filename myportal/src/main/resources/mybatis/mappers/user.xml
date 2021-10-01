@@ -15,4 +15,9 @@
 	<select id="emailcheck" parameterType="map" resultType="userVo">
 		SELECT * FROM users WHERE email=#{email}
 	</select>
+	<update id="update" parameterType="userVo">
+		update users
+		set name = #{name},email = #{email}, password = #{password}, gender = #{gender}
+		where no = #{no}
+	</update>
 </mapper>

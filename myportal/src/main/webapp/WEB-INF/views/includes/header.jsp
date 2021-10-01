@@ -10,9 +10,9 @@
 				</c:if>
 				
 				<c:if test="${not empty authUser }">
-				<li><a href="#">회원정보수정</a></li>
+				<li><a href="<c:url value="/user/update" />">회원정보수정</a></li>
 				<li><a href="<c:url value="/user/logout" />">로그아웃</a></li>
-				<li> ${authUser } 님 안녕하세요 ^^;</li>
+				<li> ${authUser.getName() } 님 안녕하세요 ^^;</li>
 				</c:if>
 				<!-- 로그인 했을 때 -->
 				

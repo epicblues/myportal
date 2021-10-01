@@ -10,14 +10,14 @@
 </head>
 <body>
 	<div id="container">
-		<%-- import header.jsp here --%>
-		<%-- import navigation.jsp" --%>
+		<jsp:include page="/WEB-INF/views/includes/header.jsp"/>
+		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"/>
 		<div id="wrapper">
 			<div id="content">
 				<!-- Contents 영역 -->
 			</div>
 		</div>
-		<%-- import footer.jsp --%>
+		<%@ include file = "/WEB-INF/views/includes/footer.jsp" %>
 	</div>
 </body>
 </html>

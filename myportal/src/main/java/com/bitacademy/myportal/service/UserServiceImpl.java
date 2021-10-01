@@ -33,4 +33,10 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public int updateUser(UserVo vo) {
+		int updatedCount = userDaoImpl.update(vo);
+		return updatedCount;
+	}
+
 }
