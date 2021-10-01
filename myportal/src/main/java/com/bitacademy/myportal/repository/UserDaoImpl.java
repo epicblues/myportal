@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
 		map.put("password", password);
 		
 		UserVo selected = sqlSession.selectOne("user.login",map);
-		System.out.println(selected);
+
 		return selected;
 	}
 	
@@ -30,7 +30,6 @@ public class UserDaoImpl implements UserDao {
 		Map<String, String> map = new HashMap<String,String>();
 		map.put("email", email);
 		UserVo selected = sqlSession.selectOne("user.emailcheck",map);
-		System.out.println(selected);
 		return selected;
 	}
 

@@ -36,7 +36,13 @@
 							<td>${ vo.userName}</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
-							<td><a href="<c:url value="/board/delete/${vo.no }"/>">삭제</a></td>
+							<c:if test="${authUser.getNo() == vo.userNo }">
+								<td><a href="<c:url value="/board/delete/${vo.no }"/>">삭제</a></td>
+							</c:if>
+							<c:if test="${authUser.getNo() != vo.userNo }">
+								<td>삭제불가능</td>?
+							</c:if>
+							
 						</tr>
 					</c:forEach>
 
