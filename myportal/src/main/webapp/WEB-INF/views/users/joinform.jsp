@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>회원 가입폼</title>
+	<script src="<c:url value="/javascript/jquery/jquery-3.6.0.js" />"></script>
 </head>
 <body>
 	<h1>회원 가입</h1>
@@ -25,7 +26,9 @@
 		<input name="password" type="password" placeholder="비밀번호를 입력하십시오"><br>
 	
 		<label for="email">이메일</label>
-		<input type="text" name="email" placeholder="이메일을 입력하십시오."><br>
+		<input type="text" name="email" placeholder="이메일을 입력하십시오.">
+		<button onclick="checkEmail(this, '<c:url value="/users/emailcheck" />' )">중복 확인</button>
+		<br>
 	
 		<label for="gender">성별</label>
 		<input type="radio" name="gender" value="M" checked>남성</radio>
@@ -33,6 +36,6 @@
 		<input type="submit" value="전송"> 
 	
 	</form>
-	
+	<script src="<c:url value="/javascript/users.js" />"></script>
 </body>
 </html>
