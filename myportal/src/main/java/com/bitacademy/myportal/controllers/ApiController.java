@@ -29,7 +29,7 @@ public class ApiController {
 		Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
 		UserVo returnedVo = userServiceImpl.getUser(email);
-
+	
 		resultMap.put("result", returnedVo != null);
 		return resultMap;
 	}

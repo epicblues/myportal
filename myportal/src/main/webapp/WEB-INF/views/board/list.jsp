@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>My Homepage</title>
@@ -16,6 +16,7 @@
 		<jsp:include page="/WEB-INF/views/includes/navigation.jsp" />
 		<div id="wrapper">
 			<div id="content">
+				<h1>게시판</h1>
 				<table border="1" width="640">
 					<tr>
 						<td colspan="6"><h3>게시판</h3></td>
@@ -28,24 +29,24 @@
 						<th>작성일</th>
 						<th>&nbsp;</th>
 					</tr>
-
-					<c:forEach items="${list }" var="vo">
+					<c:forEach items="${list }" var="vo" varStatus="status">
 						<tr>
 							<td>${ vo.no}</td>
 							<td><a href="<c:url value="/board/${vo.no }"/>">${vo.title }</a></td>
 							<td>${ vo.userName}</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
-							<c:if test="${authUser.getNo() == vo.userNo }">
-								<td><a href="<c:url value="/board/delete/${vo.no }"/>">삭제</a></td>
-							</c:if>
-							<c:if test="${authUser.getNo() != vo.userNo }">
-								<td>삭제불가능</td>?
-							</c:if>
-							
+							<c:choose>
+								<c:when test="${authUser.getNo() == vo.userNo }">
+									<td><a href="<c:url value="/board/delete/${vo.no }"/>">삭제</a></td>
+								</c:when>
+								<c:otherwise>
+									<td>삭제불가능</td>
+								</c:otherwise>
+							</c:choose>
+						
 						</tr>
 					</c:forEach>
-
 					<tr>
 						<td colspan="6"><a href="<c:url value="/board/write" />">글쓰기</a></td>
 					</tr>

@@ -26,7 +26,7 @@ public class GuestbookController {
 	public String list(Model model) {
 
 		List<GuestbookVo> list = guestbookServiceImpl.getMessageList();
-		System.out.println(list);
+		
 		model.addAttribute("list", list);
 
 		return "guestbook/list";

@@ -31,9 +31,9 @@
 			onclick="checkEmail(this, '<c:url value="/user/emailcheck" />' );event.preventDefault();">중복
 			확인</button>
 		<br> <label for="gender">성별</label> <input type="radio"
-			name="gender" value="M" checked='${authUser.getGender() == "M"  }'>남성
+			name="gender" value="M" checked='${authUser.getGender().equals("M")  }'>남성
 		</radio>
-		<input type="radio" name="gender" value="F" checked='${authUser.getGender() == "F"  }'>여성
+		<input type="radio" name="gender" value="F" checked='${authUser.getGender().equals("F")   }'>여성
 		</radio>
 		<br> <input type="submit" value="전송" disabled />
 
