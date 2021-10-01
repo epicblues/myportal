@@ -25,6 +25,14 @@ public class UserDaoImpl implements UserDao {
 		System.out.println(selected);
 		return selected;
 	}
+	
+	public UserVo selectOne(String email) {
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("email", email);
+		UserVo selected = sqlSession.selectOne("user.emailcheck",map);
+		System.out.println(selected);
+		return selected;
+	}
 
 	@Override
 	public int insert(UserVo vo) {

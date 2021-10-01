@@ -11,4 +11,8 @@
 	<select id="login" parameterType="map" resultType="userVo">
 		SELECT * FROM users WHERE email=#{email} and password=#{password}
 	</select>
+	
+	<select id="emailcheck" parameterType="map" resultType="userVo">
+		SELECT * FROM users WHERE email=#{email}
+	</select>
 </mapper>

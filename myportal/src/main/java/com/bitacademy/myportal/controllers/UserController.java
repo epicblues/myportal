@@ -1,5 +1,8 @@
 package com.bitacademy.myportal.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitacademy.myportal.exception.UserDaoException;
 import com.bitacademy.myportal.repository.UserVo;
@@ -38,7 +43,7 @@ public class UserController {
 			System.err.println("에러 상황의 userVo : " + e.getUserVo());
 			e.printStackTrace();
 		}
-		
+
 		if (joinSuccess) {
 			return "/users/joinsuccess";
 		}
@@ -55,8 +60,7 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginSubmit(@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "password", required = false) String password,
-			HttpSession session) {
+			@RequestParam(value = "password", required = false) String password, HttpSession session) {
 
 		UserVo authUser = userServiceImpl.getUser(email, password);
 
@@ -72,18 +76,30 @@ public class UserController {
 		// Session scope authUser 탑재;
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		
+
 		return "redirect:/";
 	}
-	
-	
+
+	@RequestMapping(value = "/emailcheck", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> emailCheck(@RequestBody Map<String, String> json) {
+
+		String email = json.get("email");
+		Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
+
+		UserVo returnedVo = userServiceImpl.getUser(email);
+
+		resultMap.put("result", returnedVo != null);
+		return resultMap;
+	}
+
 	@ExceptionHandler(UserDaoException.class)
 	public String handlerUserDaoException(UserDaoException e, Model model) {
-		
+
 		model.addAttribute("name", e.getClass().getSimpleName());
 		model.addAttribute("message", e.getMessage());
 		return "errors/exception";

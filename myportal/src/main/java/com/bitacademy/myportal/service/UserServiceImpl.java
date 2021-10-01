@@ -28,8 +28,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVo getUser(String email) {
+		UserVo selected = userDaoImpl.selectOne(email);
+		return selected;
 		
-		return null;
 	}
 
 }
