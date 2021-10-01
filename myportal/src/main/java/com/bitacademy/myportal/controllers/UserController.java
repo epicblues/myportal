@@ -72,7 +72,7 @@ public class UserController {
 			return "redirect:/user/login";
 		}
 		System.out.println("로그인 성공");
-		session.setAttribute("authUser", authUser.getName());
+		session.setAttribute("authUser", authUser);
 		// Session scope authUser 탑재;
 		return "redirect:/";
 	}
