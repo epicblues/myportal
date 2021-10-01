@@ -5,14 +5,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.context.request.WebRequest;
 
+import com.bitacademy.myportal.exception.UserDaoException;
 import com.bitacademy.myportal.repository.UserVo;
 import com.bitacademy.myportal.service.UserService;
 
@@ -32,7 +31,14 @@ public class UserController {
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String register(@ModelAttribute UserVo vo) {
 
-		boolean joinSuccess = userServiceImpl.join(vo);
+		boolean joinSuccess = false;
+		try {
+			joinSuccess = userServiceImpl.join(vo);
+		} catch (UserDaoException e) {
+			System.err.println("에러 상황의 userVo : " + e.getUserVo());
+			e.printStackTrace();
+		}
+		
 		if (joinSuccess) {
 			return "/users/joinsuccess";
 		}
@@ -72,5 +78,14 @@ public class UserController {
 		session.invalidate();
 		
 		return "redirect:/";
+	}
+	
+	
+	@ExceptionHandler(UserDaoException.class)
+	public String handlerUserDaoException(UserDaoException e, Model model) {
+		
+		model.addAttribute("name", e.getClass().getSimpleName());
+		model.addAttribute("message", e.getMessage());
+		return "errors/exception";
 	}
 }
