@@ -18,9 +18,7 @@
 			<div id="content">
 				<h1>게시판</h1>
 				<table border="1" width="640">
-					<tr>
-						<td colspan="6"><h3>게시판</h3></td>
-					</tr>
+					
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
