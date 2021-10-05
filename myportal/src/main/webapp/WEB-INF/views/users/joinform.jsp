@@ -36,7 +36,8 @@
 					<spring:hasBindErrors name="userVo">
 						<c:if test="${errors.hasFieldErrors('password') }">
 							<strong style="color: red"> 
-	<spring:message code = "${errors.getFieldError('password').codes[0]}" text= "${ errors.getFieldError('password').defaultMessage }"/>
+	<spring:message code = "${errors.getFieldError('password').codes[0]}" 
+	text= "${ errors.getFieldError('password').defaultMessage }"/>
 							</strong>
 						</c:if>
 					</spring:hasBindErrors>
