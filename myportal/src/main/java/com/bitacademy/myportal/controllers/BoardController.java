@@ -78,12 +78,14 @@ public class BoardController {
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String writeForm(HttpSession session) {
 		
-		// 로그인 된 사용자 인지 확인
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			System.err.println("로그인 사용자가 아닙니다.");
-			return "redirect:/user/login";
-		} return "board/write";
+//		// 로그인 된 사용자 인지 확인
+//		UserVo authUser = (UserVo)session.getAttribute("authUser");
+//		if(authUser == null) {
+//			System.err.println("로그인 사용자가 아닙니다.");
+//			return "redirect:/user/login";
+//		} 
+		
+		return "board/write";
 		
 	}
 	
@@ -91,9 +93,9 @@ public class BoardController {
 	public String writeForm(@ModelAttribute BoardVo boardVo, HttpSession session) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		
-		if(authUser == null) {
-			return "redirect:/";
-		}
+//		if(authUser == null) {
+//			return "redirect:/";
+//		}
 		boardVo.setUserNo(authUser.getNo());
 		boardServiceImpl.write(boardVo);
 		

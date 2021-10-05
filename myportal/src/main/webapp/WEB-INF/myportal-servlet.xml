@@ -31,7 +31,17 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 	<mvc:default-servlet-handler />
-
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+		<mvc:mapping path="/board/**"/>
+		<mvc:exclude-mapping path="/board/list/**"/>
+		<mvc:exclude-mapping path="/board"/>
+		<mvc:exclude-mapping path="/board/"/>
+		<bean class="com.bitacademy.myportal.interceptor.AuthInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 	<!-- ViewResolver 설정 -->
 	<bean id="viewResolvers"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -41,4 +51,6 @@
 		<property name="suffix" value=".jsp"></property>
 		<property name="order" value="1"></property>
 	</bean>
+	
+	
 </beans>
