@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Logback Configuration -->
+<!-- configuration의 debug가 true면 LogBack 자체를 디버깅한다. -->
+<configuration debug="true">
+	<!-- Appender : 어디에 어떤 로그를 기록할 것인가를 설명 로그 등급 : TRACE - 전체 DEBUG - 개발 INFO 
+		- 기본 정보 WARN - 경고 ERROR - FATAL -->
+	<appender name="consoleAppender"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} = %msg KMS %n </Pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>TRACE</level>
+		</filter>
+	</appender>
+	<!-- 파일 기반 appender -->
+	<appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>\log-myportal\myportal.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<charset>UTF-8</charset>
+			<Pattern>
+				%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} = %msg KMS %n 
+			</Pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<FileNamePattern>\log-myportal\exec-time.%i.log.zip</FileNamePattern>
+			<MinIndex>1</MinIndex>
+			<MaxIndex>10</MaxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>1MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+	
+	<!-- 작성된 로거가 사용될 패키지와 로그 레벨 지정 -->
+	<!--  해당 패키지에 있는 클래스에 작성된 하위 로거의 DEBUG 이상의 레벨일 때 -->
+	<logger name="com.bitacademy.myportal" level="DEBUG">
+		<appender-ref ref="consoleAppender" />
+	</logger>
+	<root level="TRACE">
+		<appender-ref ref="fileAppender" />
+	</root>
+	
+</configuration>
+

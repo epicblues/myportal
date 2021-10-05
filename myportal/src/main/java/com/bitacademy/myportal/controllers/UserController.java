@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,17 @@ import com.bitacademy.myportal.exception.UserDaoException;
 import com.bitacademy.myportal.repository.UserVo;
 import com.bitacademy.myportal.service.UserService;
 
+import ch.qos.logback.classic.Logger;
+
 @RequestMapping("/user")
 @Controller
 public class UserController {
 
+	// 로거 세팅
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UserController.class);
+	
+	
+	
 	@Autowired
 	private UserService userServiceImpl;
 
@@ -50,25 +58,27 @@ public class UserController {
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join() {
-
+		logger.debug("회원가입");
 		return "/users/joinform";
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String register(@ModelAttribute UserVo vo) {
-
+		logger.debug("가입폼으로부터 전송된 데이터 : " + vo);
 		boolean joinSuccess = false;
 		try {
 			joinSuccess = userServiceImpl.join(vo);
 		} catch (UserDaoException e) {
-			System.err.println("에러 상황의 userVo : " + e.getUserVo());
+		
+			logger.error("에러 상황의 UserVo : " + vo);
 			e.printStackTrace();
 		}
 
 		if (joinSuccess) {
+			logger.debug("가입 성공!");
 			return "/users/joinsuccess";
 		}
-
+		logger.debug("가입 실패");
 		return "redirect:/user/join";
 
 	}
@@ -86,13 +96,13 @@ public class UserController {
 		UserVo authUser = userServiceImpl.getUser(email, password);
 
 		if (email.length() == 0 || password.length() == 0) {
-			System.out.println("로그인 불가!");
+			logger.error("로그인 불가능. 데이터 입력 필요");
 			return "redirect:/user/login";
 		} else if (authUser == null) {
-			System.out.println("로그인 실패 : 이메일 또는 패스워드 불일치");
+			logger.error("로그인 실패 : 이메일 또는 패스워드 불일치");
 			return "redirect:/user/login";
 		}
-		System.out.println("로그인 성공");
+		logger.error("로그인 성공");
 		session.setAttribute("authUser", authUser);
 		// Session scope authUser 탑재;
 		return "redirect:/";
