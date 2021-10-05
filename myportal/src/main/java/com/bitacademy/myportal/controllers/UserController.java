@@ -73,6 +73,7 @@ public class UserController {
 			List<ObjectError> list = result.getAllErrors();
 			for(ObjectError error : list) {
 				logger.error("검증에러" + error);
+				
 			}
 			
 			// 에러 정보를 모델에 적재

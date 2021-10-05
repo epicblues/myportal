@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,15 +23,39 @@
 					action='<c:url value="/user/join"/>' method="POST">
 					<input type="hidden" name="a" value="join"> <label
 						for="name">이름</label> <input name="name" type="text"
-						placeholder="이름을 입력하십시오"><br> <label for="password">비밀번호</label>
-					<input name="password" type="password" placeholder="비밀번호를 입력하십시오"><br>
-					<label for="email">이메일</label> <input type="text" name="email"
-						placeholder="이메일을 입력하십시오.">
+						placeholder="이름을 입력하십시오"> <br />
+					<spring:hasBindErrors name="userVo">
+						<c:if test="${errors.hasFieldErrors('name') }">
+							<strong style="color: red"> 
+							<spring:message code = "${errors.getFieldError('name').codes[0]}" text= "${ errors.getFieldError('name').defaultMessage }"/>
+							</strong>
+						</c:if>
+					</spring:hasBindErrors>
+					<br /> <label for="password">비밀번호</label> <input name="password"
+						type="password" placeholder="비밀번호를 입력하십시오"><br>
+					<spring:hasBindErrors name="userVo">
+						<c:if test="${errors.hasFieldErrors('password') }">
+							<strong style="color: red"> 
+	<spring:message code = "${errors.getFieldError('password').codes[0]}" text= "${ errors.getFieldError('password').defaultMessage }"/>
+							</strong>
+						</c:if>
+					</spring:hasBindErrors>
+					<br /> <label for="email">이메일</label> <input type="text"
+						name="email" placeholder="이메일을 입력하십시오.">
+
 					<button
 						onclick="checkEmail(this, '<c:url value="/user/emailcheck" />' );event.preventDefault();">중복
 						확인</button>
-					<br> <label for="gender">성별</label> <input type="radio"
-						name="gender" value="M" checked>남성
+					<br />
+					<spring:hasBindErrors name="userVo">
+						<c:if test="${errors.hasFieldErrors('email') }">
+							<strong style="color: red"> 
+		<spring:message code = "${errors.getFieldError('email').codes[0]}" text= "${ errors.getFieldError('email').defaultMessage }"/>
+							</strong>
+						</c:if>
+					</spring:hasBindErrors>
+					<br /> <br> <label for="gender">성별</label> <input
+						type="radio" name="gender" value="M" checked>남성
 					</radio>
 					<input type="radio" name="gender" value="F">여성
 					</radio>
