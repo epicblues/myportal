@@ -13,6 +13,7 @@
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
+	<mvc:annotation-driven></mvc:annotation-driven>
 	<!-- Oracle datasource -->
 	<bean id="oracleDatasource"
 		class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">

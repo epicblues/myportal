@@ -1,14 +1,18 @@
 package com.bitacademy.myportal.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bitacademy.myportal.exception.UserDaoException;
 import com.bitacademy.myportal.repository.UserVo;
 import com.bitacademy.myportal.service.UserService;
-
-import ch.qos.logback.classic.Logger;
 
 @RequestMapping("/user")
 @Controller
@@ -63,8 +65,21 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String register(@ModelAttribute UserVo vo) {
+	public String register(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model) {
 		logger.debug("가입폼으로부터 전송된 데이터 : " + vo);
+		
+		if(result.hasErrors()) { // 검증이 실패
+			// 에러 목록 받아오기(검증 실패한 오류의 목록 확인)
+			List<ObjectError> list = result.getAllErrors();
+			for(ObjectError error : list) {
+				logger.error("검증에러" + error);
+			}
+			
+			// 에러 정보를 모델에 적재
+			model.addAllAttributes(result.getModel());
+			return "/users/joinform";
+		}
+		
 		boolean joinSuccess = false;
 		try {
 			joinSuccess = userServiceImpl.join(vo);

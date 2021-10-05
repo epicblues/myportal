@@ -2,12 +2,25 @@ package com.bitacademy.myportal.repository;
 
 import java.util.Date;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+
 public class UserVo {
 	private long no; // PRIMARY KEY 반환
+	@NotEmpty
+	@Length(min = 2, max = 8)
 	private String name; // 사용자 이름
+	@NotEmpty
+	@Email
 	private String email; // 사용자 이메일
+	@NotEmpty
+	@Length(min = 4, max = 20)
 	private String password; // 비밀번호
 	private String gender; // 성별 정보
+	private Date createdAt; // 계정 생성 날짜.
 
 	public UserVo( ) {
 		System.out.println(UserVo.class + " : Constructed");
@@ -67,5 +80,5 @@ public class UserVo {
 		this.createdAt = createdAt;
 	}
 
-	private Date createdAt; // 계정 생성 날짜.
+	
 }

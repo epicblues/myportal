@@ -25,7 +25,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		// 로그인 사용자 체크
 		UserVo authUser=null;
 		if(session != null) {
-			// session에서 로그인 사ㅛ용자 정보 확인.
+			// session에서 로그인 사용자 정보 확인.
 			authUser = (UserVo)session.getAttribute("authUser");
 			if(authUser == null) {
 				// 로그인 사용자 아님
