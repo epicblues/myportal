@@ -61,8 +61,13 @@
 		</property>
 	</bean>
 	
+	<!-- Multipart Resolver -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="52428800"></property>
 		<property name="defaultEncoding" value="utf-8"></property>
 	</bean>
+	
+	<!-- Resource Mapping -->
+	<!--  저장된 디렉토리와 url을 매핑한다 -->
+	<mvc:resources mapping="/upload/**" location="file:C:/upload/"></mvc:resources>
 </beans>

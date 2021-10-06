@@ -10,7 +10,7 @@
 </head>
 <body>
 	<H1>업로드된 이미지</H1>
-	<img src="" />
+	<img src="<c:url value="${urlImage}" />" />
 	<a href="<c:url value="/fileupload/form" />">다시 업로드</a>
 </body>
 </html>
